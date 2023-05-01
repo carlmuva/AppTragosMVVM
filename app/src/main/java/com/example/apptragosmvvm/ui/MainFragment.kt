@@ -24,6 +24,7 @@ import com.example.apptragosmvvm.vo.Resource
 class MainFragment : Fragment(), MainAdapter.OnTragoClickListener {
 
     private lateinit var mBinding: FragmentMainBinding
+
     private val viewModel by viewModels<MainViewModel> { VMFactory(RepoImpl(DataSource())) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +44,12 @@ class MainFragment : Fragment(), MainAdapter.OnTragoClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setuprecyclerView()
+        setupSearchView()
+        setupObservers()
 
+    }
+
+    private fun setupObservers(){
         viewModel.fetchTragosList.observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is Resource.Loading -> {
@@ -63,7 +69,6 @@ class MainFragment : Fragment(), MainAdapter.OnTragoClickListener {
                 }
             }
         })
-
     }
 
     private fun setuprecyclerView() {
@@ -82,5 +87,17 @@ class MainFragment : Fragment(), MainAdapter.OnTragoClickListener {
         val bundle = Bundle()
         bundle.putParcelable("drink",drink)
         findNavController().navigate(R.id.tragosDetalleFragment,bundle)
+    }
+
+    private fun setupSearchView(){
+        mBinding.searchView.setOnQueryTextListener(object:androidx.appcompat.widget.SearchView.OnQueryTextListener{
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.setTrago(query!!)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {return false}
+        })
     }
 }
