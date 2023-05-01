@@ -6,7 +6,7 @@ import com.example.apptragosmvvm.vo.Resource
 
 class RepoImpl(private val dataSource: DataSource) : Repo {
 
-    override fun getTragosList(): Resource<List<Drink>> {
-        return dataSource.providerTragosList
+    suspend override fun getTragosList(tragoName:String): Resource<List<Drink>> {
+        return dataSource.getTragoByName(tragoName)
     }
 }

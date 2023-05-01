@@ -4,5 +4,5 @@ import com.example.apptragosmvvm.data.model.Drink
 import com.example.apptragosmvvm.vo.Resource
 
 interface Repo {
-    fun getTragosList():Resource<List<Drink>>
+    suspend fun getTragosList(tragoName: String):Resource<List<Drink>>
 }
