@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 
 class MainViewModel(private val repo: Repo):ViewModel(){
 
+
     val fetchTragosList = liveData(Dispatchers.IO){
         emit(Resource.Loading())
         try {
