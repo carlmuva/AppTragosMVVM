@@ -1,6 +1,9 @@
 package com.example.apptragosmvvm.data.model
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import androidx.versionedparcelable.ParcelField
 import androidx.versionedparcelable.VersionedParcelize
 import com.google.gson.annotations.SerializedName
@@ -22,4 +25,18 @@ data class Drink(
 data class DrinkList(
     @SerializedName("drinks")
     val drinksList:List<Drink> = listOf()
+)
+
+@Entity
+data class DrinkEntity(
+    @PrimaryKey
+    val tragoId: String,
+    @ColumnInfo(name = "trago_imagen")
+    val imagen: String?,
+    @ColumnInfo(name = "trago_nombre")
+    val nombre: String?,
+    @ColumnInfo(name = "trago_descripcion")
+    val descripcion: String?,
+    @ColumnInfo(name = "trago_has_alcohol")
+    val hasAlcohol:String?
 )
