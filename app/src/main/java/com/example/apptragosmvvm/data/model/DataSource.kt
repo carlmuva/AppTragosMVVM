@@ -1,12 +1,21 @@
 package com.example.apptragosmvvm.data.model
 
+import com.example.apptragosmvvm.AppDatabase
 import com.example.apptragosmvvm.vo.Resource
 import com.example.apptragosmvvm.vo.RetrofitClient
 
-class DataSource {
+class DataSource(private val appDatabase: AppDatabase) {
 
     suspend fun getTragoByName(nombreTrago:String):Resource<List<Drink>>{
         return Resource.Success(RetrofitClient.webservice.getTragoByName(nombreTrago).drinksList)
+    }
+
+    suspend fun insertTragoIntoRoom(trago: DrinkEntity){
+        appDatabase.tragoDao().insertFavorite(trago)
+    }
+
+    suspend fun getTragosFavoritos(): Resource<List<DrinkEntity>> {
+        return Resource.Success(appDatabase.tragoDao().getAllFavoriteDrinks())
     }
 
 /*    val providerTragosList =Resource.Success( listOf(

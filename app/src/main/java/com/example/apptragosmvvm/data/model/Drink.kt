@@ -11,6 +11,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Drink(
+    @SerializedName("idDrink")
+    val tragoId:String = "",
     @SerializedName("strDrinkThumb")
     val imagen : String = "",
     @SerializedName("strDrink")
@@ -27,16 +29,16 @@ data class DrinkList(
     val drinksList:List<Drink> = listOf()
 )
 
-@Entity
+@Entity(tableName = "tragosEntity")
 data class DrinkEntity(
     @PrimaryKey
     val tragoId: String,
     @ColumnInfo(name = "trago_imagen")
-    val imagen: String?,
+    val imagen: String = "",
     @ColumnInfo(name = "trago_nombre")
-    val nombre: String?,
+    val nombre: String ="",
     @ColumnInfo(name = "trago_descripcion")
-    val descripcion: String?,
+    val descripcion: String ="",
     @ColumnInfo(name = "trago_has_alcohol")
-    val hasAlcohol:String?
+    val hasAlcohol:String = "No_Alcoholic"
 )

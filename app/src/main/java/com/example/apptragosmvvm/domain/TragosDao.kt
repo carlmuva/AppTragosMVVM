@@ -6,11 +6,12 @@ import com.example.apptragosmvvm.data.model.DrinkEntity
 @Dao
 interface TragosDao {
 
-    @Query("SELECT * FROM drinkentity")
-    suspend fun getFavoriteAllDrinks(): List<DrinkEntity>
+
+    @Query("SELECT * FROM tragosEntity")
+    suspend fun getAllFavoriteDrinks(): List<DrinkEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertFavoriteTrago(trago:DrinkEntity)
+     suspend fun insertFavorite(trago:DrinkEntity)
 
 /*    @Delete
     suspend fun delete(drink: DrinkEntity)*/
